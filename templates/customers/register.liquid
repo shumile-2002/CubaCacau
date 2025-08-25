@@ -11,35 +11,163 @@
           {{ form.errors | default_errors }}
         </div>
       {% endif %}
-      <label class="form__field form__field--email wt-customer__form--input-first" for="RegisterForm-FirstName">
+
+
+
+      <!-- Status and VAT/SIRET Row -->
+      <div class="status-vat-row">
+        <!-- Status Toggle -->
+        <div id="status_toggle" class="form__field status-field">
+          <span class="form__field__label">Status <span style="color: red;">*</span></span>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="status_staff" name="customer[note][customer_type]" value="staff" required>
+              <label for="status_staff">Staff</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="status_company" name="customer[note][customer_type]" value="company" required>
+              <label for="status_company">Company</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAT / SIRET Toggle -->
+        <div id="vat_siret_toggle" class="form__field vat-siret-field company-only" style="display: none;">
+          <span class="form__field__label">VAT / SIRET <span style="color: red;">*</span></span>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="vat_no" name="customer[note][vat_siret_type]" value="vat">
+              <label for="vat_no">VAT NO.</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="siret_no" name="customer[note][vat_siret_type]" value="siret">
+              <label for="siret_no">SIRET NO.</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name Row -->
+      <div class="name-row">
+        <label class="form__field form__field--email name-field" for="RegisterForm-LastName">
+          <input
+            type="text"
+            name="customer[last_name]"
+            id="RegisterForm-LastName"
+            class="form__field__input"
+            {% if form.last_name %}
+              value="{{ form.last_name }}"
+            {% endif %}
+            autocomplete="family-name"
+            placeholder=" "
+            required
+          >
+          <span class="form__field__label">Name <span style="color: red;">*</span></span>
+        </label>
+        <label class="form__field form__field--email first-name-field" for="RegisterForm-FirstName">
+          <input
+            type="text"
+            name="customer[first_name]"
+            id="RegisterForm-FirstName"
+            class="form__field__input"
+            {% if form.first_name %}
+              value="{{ form.first_name }}"
+            {% endif %}
+            autocomplete="given-name"
+            placeholder=" "
+            required
+          >
+          <span class="form__field__label">First name <span style="color: red;">*</span></span>
+        </label>
+      </div>
+
+      <!-- VAT/SIRET Number Fields -->
+      <label id="vat_number_field" class="form__field form__field--email vat-siret-input company-only" style="display: none;" for="vat_number">
         <input
           type="text"
-          name="customer[first_name]"
-          id="RegisterForm-FirstName"
+          name="customer[note][vat_number]"
+          id="vat_number"
           class="form__field__input"
-          {% if form.first_name %}
-            value="{{ form.first_name }}"
-          {% endif %}
-          autocomplete="given-name"
           placeholder=" "
         >
-        <span class="form__field__label"> First name </span>
-      </label>
-      <label class="form__field form__field--email" for="RegisterForm-LastName">
-        <input
-          type="text"
-          name="customer[last_name]"
-          id="RegisterForm-LastName"
-          class="form__field__input"
-          {% if form.last_name %}
-            value="{{ form.last_name }}"
-          {% endif %}
-          autocomplete="family-name"
-          placeholder=" "
-        >
-        <span class="form__field__label"> Last name </span>
+        <span class="form__field__label">VAT NO. <span style="color: red;">*</span></span>
       </label>
 
+      <label id="siret_number_field" class="form__field form__field--email vat-siret-input company-only" style="display: none;" for="siret_number">
+        <input
+          type="text"
+          name="customer[note][siret_number]"
+          id="siret_number"
+          class="form__field__input"
+          placeholder=" "
+        >
+        <span class="form__field__label">SIRET NUMBER <span style="color: red;">*</span></span>
+      </label>
+
+      <!-- Company Name Field -->
+      <label id="company_name_field" class="form__field form__field--email company-only" style="display: none;" for="company_name">
+        <input
+          type="text"
+          name="customer[note][company_name]"
+          id="company_name"
+          class="form__field__input"
+          placeholder=" "
+        >
+        <span class="form__field__label">Company name <span style="color: red;">*</span></span>
+      </label>
+
+      <!-- User Name Field -->
+      <label id="user_name_field" class="form__field form__field--email" for="user_name">
+        <input
+          type="text"
+          name="customer[note][user_name]"
+          id="user_name"
+          class="form__field__input"
+          placeholder=" "
+          required
+        >
+        <span class="form__field__label">User name <span style="color: red;">*</span></span>
+      </label>
+
+      <!-- Address Field -->
+      <label id="address_field" class="form__field form__field--email company-only" style="display: none;" for="address">
+        <input
+          type="text"
+          name="customer[note][address]"
+          id="address"
+          class="form__field__input"
+          placeholder=" "
+        >
+        <span class="form__field__label">Address <span style="color: red;">*</span></span>
+      </label>
+
+      <!-- City and Postal Code Row -->
+      <div class="city-postal-row">
+        <label class="form__field form__field--email city-field" for="city">
+          <input
+            type="text"
+            name="customer[note][city]"
+            id="city"
+            class="form__field__input"
+            placeholder=" "
+            required
+          >
+          <span class="form__field__label">City <span style="color: red;">*</span></span>
+        </label>
+        <label class="form__field form__field--email postal-code-field" for="postal_code">
+          <input
+            type="text"
+            name="customer[note][postal_code]"
+            id="postal_code"
+            class="form__field__input"
+            placeholder=" "
+            required
+          >
+          <span class="form__field__label">Postal Code <span style="color: red;">*</span></span>
+        </label>
+      </div>
+
+      <!-- Email Field -->
       <label class="form__field form__field--email" for="RegisterForm-email">
         <input
           type="email"
@@ -58,8 +186,9 @@
             aria-describedby="RegisterForm-email-error"
           {% endif %}
           placeholder=" "
+          required
         >
-        <span class="form__field__label"> Email </span>
+        <span class="form__field__label">Email <span style="color: red;">*</span></span>
         {%- if form.errors contains 'email' -%}
           <span id="RegisterForm-email-error" class="form__message">
             {{ form.errors.translated_fields.email | capitalize }}
@@ -67,6 +196,21 @@
           </span>
         {%- endif -%}
       </label>
+
+      <!-- Phone Field -->
+      <label id="phone_field" class="form__field form__field--email" for="phone">
+        <input
+          type="tel"
+          name="customer[note][phone]"
+          id="phone"
+          class="form__field__input"
+          placeholder=" "
+          required
+        >
+        <span class="form__field__label">Phone <span style="color: red;">*</span></span>
+      </label>
+
+      <!-- Password Fields -->
       <label class="form__field form__field--email" for="RegisterForm-password">
         <input
           type="password"
@@ -79,8 +223,9 @@
             aria-describedby="RegisterForm-password-error"
           {% endif %}
           placeholder=" "
+          required
         >
-        <span class="form__field__label"> Password </span>
+        <span class="form__field__label">Password <span style="color: red;">*</span></span>
       </label>
       {%- if form.errors contains 'password' -%}
         <span id="RegisterForm-password-error" class="form__message">
@@ -88,12 +233,446 @@
           {{ form.errors.messages.password }}.
         </span>
       {%- endif -%}
-      <button
-        aria-label="{{ 'customer.register.submit' | t }}"
-        class="form__send__button hero__button--primary  wt-customer__create-account"
-      >
-        {{ 'customer.register.submit' | t }}
-      </button>
+
+      <label id="confirm_password_field" class="form__field form__field--email" for="confirm_password">
+        <input
+          type="password"
+          name="confirm_password"
+          id="confirm_password"
+          class="form__field__input"
+          placeholder=" "
+          required
+        >
+        <span class="form__field__label">Confirm your password <span style="color: red;">*</span></span>
+      </label>
+
+      <div class="action_bottom">
+        <button
+          aria-label="{{ 'customer.register.submit' | t }}"
+          class="form__send__button hero__button--primary  wt-customer__create-account"
+          type="submit"
+        >
+          {{ 'customer.register.submit' | t }}
+        </button>
+        <p class="right">
+          <input type="button" value="Reset" onclick="resetForm()" />
+        </p>
+      </div>
+
     {%- endform -%}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const staffRadio = document.getElementById('status_staff');
+        const companyRadio = document.getElementById('status_company');
+        const companyFields = document.querySelectorAll('.company-only');
+        const requiredFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="radio"]');
+
+        function toggleVatSiretFields() {
+          const vatRadio = document.getElementById('vat_no');
+          const siretRadio = document.getElementById('siret_no');
+          const vatField = document.getElementById('vat_number_field');
+          const siretField = document.getElementById('siret_number_field');
+
+          // Hide both fields if neither radio is checked
+          if (!vatRadio.checked && !siretRadio.checked) {
+            vatField.style.display = 'none';
+            siretField.style.display = 'none';
+            document.getElementById('vat_number').removeAttribute('required');
+            document.getElementById('siret_number').removeAttribute('required');
+            return;
+          }
+
+          // Show appropriate field based on selection
+          if (siretRadio.checked) {
+            vatField.style.display = 'none';
+            siretField.style.display = 'block';
+            document.getElementById('vat_number').removeAttribute('required');
+            document.getElementById('siret_number').setAttribute('required', '');
+          } else if (vatRadio.checked) {
+            vatField.style.display = 'block';
+            siretField.style.display = 'none';
+            document.getElementById('vat_number').setAttribute('required', '');
+            document.getElementById('siret_number').removeAttribute('required');
+          }
+        }
+
+        function toggleCompanyFields() {
+          const isCompany = companyRadio.checked;
+          const vatField = document.getElementById('vat_number_field');
+          const siretField = document.getElementById('siret_number_field');
+          const vatRadio = document.getElementById('vat_no');
+          const siretRadio = document.getElementById('siret_no');
+
+          companyFields.forEach(field => {
+            // Handle other company fields (not VAT/SIRET)
+            if (field !== vatField && field !== siretField) {
+              field.style.display = isCompany ? 'block' : 'none';
+              const inputs = field.querySelectorAll('input:not([type="radio"])');
+              inputs.forEach(input => {
+                if (isCompany) {
+                  input.setAttribute('required', '');
+                } else {
+                  input.removeAttribute('required');
+                }
+              });
+            }
+          });
+
+          if (isCompany) {
+            // When company is selected, automatically select VAT and show VAT field
+            if (!siretRadio.checked) { // Only if SIRET isn't explicitly selected
+              vatRadio.checked = true;
+              vatField.style.display = 'block';
+              siretField.style.display = 'none';
+              vatField.querySelector('input').setAttribute('required', '');
+              siretField.querySelector('input').removeAttribute('required');
+            }
+          } else {
+            // When company is not selected, hide both fields
+            vatField.style.display = 'none';
+            siretField.style.display = 'none';
+            vatField.querySelector('input').removeAttribute('required');
+            siretField.querySelector('input').removeAttribute('required');
+            // Uncheck both radios
+            vatRadio.checked = false;
+            siretRadio.checked = false;
+          }
+        }
+
+        // Add event listeners for VAT/SIRET toggle
+        document.getElementById('vat_no').addEventListener('change', toggleVatSiretFields);
+        document.getElementById('siret_no').addEventListener('change', toggleVatSiretFields);
+
+        function validateField(field) {
+          const errorContainer = field.parentElement.querySelector('.error-message');
+          if (errorContainer) {
+            errorContainer.remove();
+          }
+
+          if (!field.value && field.hasAttribute('required')) {
+            field.classList.add('form__field__input--error');
+            const error = document.createElement('span');
+            error.className = 'error-message form__message';
+            error.innerHTML = 'This field is required.';
+            field.parentElement.appendChild(error);
+            return false;
+          }
+
+          field.classList.remove('form__field__input--error');
+          return true;
+        }
+
+        function validateRadioGroup(name) {
+          const radios = form.querySelectorAll(`input[name="${name}"]`);
+          const group = radios[0].closest('.radio-group');
+          const errorContainer = group.parentElement.querySelector('.error-message');
+          
+          if (errorContainer) {
+            errorContainer.remove();
+          }
+
+          if (!Array.from(radios).some(radio => radio.checked)) {
+            const error = document.createElement('span');
+            error.className = 'error-message form__message';
+            error.innerHTML = 'This field is required.';
+            group.parentElement.appendChild(error);
+            return false;
+          }
+          return true;
+        }
+
+        // Add validation on form submit
+        form.addEventListener('submit', function(e) {
+          let isValid = true;
+
+          // Validate Status selection
+          if (!validateRadioGroup('customer[note][customer_type]')) {
+            isValid = false;
+          }
+
+          // Validate all required fields
+          requiredFields.forEach(field => {
+            if (field.type !== 'radio' && (!validateField(field))) {
+              isValid = false;
+            }
+          });
+
+          // Validate company-specific fields if company is selected
+          if (companyRadio.checked) {
+            if (!validateRadioGroup('customer[note][vat_siret_type]')) {
+              isValid = false;
+            }
+            
+            // Validate VAT or SIRET number based on selection
+            const vatRadio = document.getElementById('vat_no');
+            if (vatRadio.checked) {
+              const vatNumber = document.getElementById('vat_number');
+              if (!validateField(vatNumber)) {
+                isValid = false;
+              }
+            } else {
+              const siretNumber = document.getElementById('siret_number');
+              if (!validateField(siretNumber)) {
+                isValid = false;
+              }
+            }
+          }
+
+          // Validate password match
+          const password = document.getElementById('RegisterForm-password');
+          const confirmPassword = document.getElementById('confirm_password');
+          if (password.value !== confirmPassword.value) {
+            password.classList.add('form__field__input--error');
+            confirmPassword.classList.add('form__field__input--error');
+            const error = document.createElement('span');
+            error.className = 'error-message form__message';
+            error.innerHTML = 'Passwords do not match.';
+            confirmPassword.parentElement.appendChild(error);
+            isValid = false;
+          }
+
+          if (!isValid) {
+            e.preventDefault();
+          }
+        });
+
+        // Add validation on field blur
+        requiredFields.forEach(field => {
+          if (field.type !== 'radio') {
+            field.addEventListener('blur', () => validateField(field));
+          }
+        });
+
+        // Initialize form state
+        toggleVatSiretFields(); // Hide VAT/SIRET fields initially
+        
+        if (staffRadio) staffRadio.addEventListener('change', toggleCompanyFields);
+        if (companyRadio) companyRadio.addEventListener('change', toggleCompanyFields);
+        
+        // Ensure labels are clickable - add click events to labels as backup
+        const staffLabel = document.querySelector('label[for="status_staff"]');
+        const companyLabel = document.querySelector('label[for="status_company"]');
+        const vatLabel = document.querySelector('label[for="vat_no"]');
+        const siretLabel = document.querySelector('label[for="siret_no"]');
+        
+        if (staffLabel) {
+          staffLabel.addEventListener('click', function(e) {
+            if (staffRadio && !staffRadio.checked) {
+              staffRadio.checked = true;
+              staffRadio.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+        
+        if (companyLabel) {
+          companyLabel.addEventListener('click', function(e) {
+            if (companyRadio && !companyRadio.checked) {
+              companyRadio.checked = true;
+              companyRadio.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+        
+        if (vatLabel) {
+          vatLabel.addEventListener('click', function(e) {
+            const vatRadio = document.getElementById('vat_no');
+            if (vatRadio && !vatRadio.checked) {
+              vatRadio.checked = true;
+              vatRadio.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+        
+        if (siretLabel) {
+          siretLabel.addEventListener('click', function(e) {
+            const siretRadio = document.getElementById('siret_no');
+            if (siretRadio && !siretRadio.checked) {
+              siretRadio.checked = true;
+              siretRadio.dispatchEvent(new Event('change'));
+            }
+          });
+        }
+      });
+
+      function resetForm() {
+        const form = document.querySelector('form');
+        if (form) {
+          form.reset();
+          document.querySelectorAll('.company-only').forEach(field => {
+            field.style.display = 'none';
+          });
+          // Hide VAT/SIRET number fields
+          document.getElementById('vat_number_field').style.display = 'none';
+          document.getElementById('siret_number_field').style.display = 'none';
+          // Clear all error messages
+          document.querySelectorAll('.error-message').forEach(error => error.remove());
+          // Reset all input classes
+          document.querySelectorAll('input').forEach(input => {
+            input.classList.remove('form__field__input--error');
+          });
+        }
+      }
+    </script>
+
+    <style>
+      /* Custom styling for the enhanced registration form */
+      /* Status and VAT/SIRET Row */
+      .status-vat-row {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+        gap: 40px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .status-field,
+      .vat-siret-field {
+        flex: 0 1 auto;
+        min-width: 150px;
+        max-width: 250px;
+        overflow: visible;
+        text-align: left;
+      }
+
+      .status-field .form__field__label,
+      .vat-siret-field .form__field__label {
+        display: block;
+        margin-bottom: 8px;
+        line-height: 1.2;
+        font-weight: normal;
+        position: relative;
+        height: max-content;
+        left: unset;
+      }
+      
+      /* Radio button styling */
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .radio-option input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        accent-color: var(--color-primary, #4CAF50);
+      }
+      
+      .radio-option label {
+        margin: 0;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1.2;
+        user-select: none;
+      }
+      
+      /* Row layouts */
+      .name-row,
+      .city-postal-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      
+      .name-row > .form__field,
+      .city-postal-row > .form__field {
+        flex: 1;
+        min-width: 200px;
+      }
+      
+      /* Company-only field transition */
+      .company-only {
+        transition: all 0.3s ease;
+      }
+
+      /* Error message styling */
+      .error-message {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .error-message::before {
+        content: "!";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        background-color: #ff0000;
+        color: white;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      
+      /* Reset button styling */
+      .right input[type="button"] {
+        background: none;
+        border: none;
+        color: #666;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-left: 15px;
+      }
+      
+      .right input[type="button"]:hover {
+        color: #333;
+      }
+
+      .action_bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      /* Required asterisk styling */
+      span[style*="color: red"] {
+        color: #ff0000 !important;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .status-vat-row,
+        .name-row,
+        .city-postal-row {
+          flex-direction: column;
+          gap: 15px;
+        }
+        
+        .status-field,
+        .vat-siret-field {
+          min-width: 100%;
+          max-width: 100%;
+        }
+
+        .action_bottom {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 15px;
+        }
+
+        .right {
+          text-align: center;
+        }
+      }
+    </style>
   </div>
 </div>
